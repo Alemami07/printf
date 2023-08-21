@@ -1,51 +1,59 @@
 #include "main.h"
+#include <unistd.h>
 #include <stdarg.h>
-#include <string.h>
 /**
- * _printf - printf function
- * @format: format
- * Return: 0 for success or -1 for error
+ *_printf - custm printf function
+ *@format: format to be printed
+ *Return: number of characters printed
  */
 int _printf(const char *format, ...)
 {
-	int i;
-	char x;
-	char *y;
+	va_list args;
+	unsigned int q, printed = 0, len_str, strings = 0;
+	char *s, c;
 
-	va_list arg;
-
-	va_start(arg, format);
-	if (format == NULL)
-	{
-		return (-1);
-	}
-	for (i = 0; format[i]; i++)
-	{
-		if (format[i] == '%' && format[i + 1] == 'c')
+	va_start(args, format);
+		if (!(format))
+			return (-1);
+		for (q = 0; format[q] != '\0'; q++)
 		{
-			x = va_arg(arg, int);
-			_putchar(x);
-			i++;
-		}
-		else if (format[i] == '%' && format[i + 1] == 's')
-		{
-			y = va_arg(arg, char*);
-			while (*y)
+			if (format[q] != '%')
 			{
-				_putchar(*y);
-				y++;
+				_putchar(format[q]);
+				printed++;
 			}
-			i++;
+			if (format[q] == '%')
+			{
+			if (format[q] == '%' && format[q + 1] == '\0')
+				return (-1);
+			else if (format[q] == '%' && format[q + 1] == 's')
+			{
+				s = va_arg(args, char *);
+				len_str = print_string(s);
+				strings += len_str;
+				++q;
+			}
+			else if (format[q] == '%' && format[q + 1] == 'c')
+			{
+				c = va_arg(args, int);
+				_putchar(c);
+				printed++;
+				++q;
+			}
+			else if (format[q] == '%' && format[q + 1] == '%')
+			{
+				pprint();
+				printed++;
+				++q;
+			}
+			else if (format[q] == '%' && format[q + 1])
+			{
+				_putchar(format[q]);
+				printed += 1;
+			}
+			}
 		}
-		else if (format[i] == '%' && format[i + 1] == '%')
-		{
-			_putchar('%');
-			i++;
-		}
-		else
-		{
-			_putchar(format[i]);
-		}
-	}
-	return (0);
+		printed += strings;
+	va_end(args);
+	return (printed);
 }

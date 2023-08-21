@@ -1,8 +1,12 @@
-#ifndef MAIN_H_
-#define MAIN_H_
+#ifndef MAIN
+#define MAIN
 
-int _printf(const char *format, ...);
+
 int _putchar(char c);
 
-#endif
+int print_int(int y);
+unsigned int print_string(char *);
+int _printf(const char *format, ...);
+void pprint(void);
 
+#endif
