@@ -1,51 +1,66 @@
 #include "main.h"
-#include <stdarg.h>
-#include <string.h>
+
+void print_buffer(char buffer[], int *buff_ind);
+
 /**
- * _printf - printf function
- * @format: format
- * Return: 0 for success or -1 for error
+ * _printf - Printf function
+ * @format: format.
+ * Return: Printed chars.
  */
 int _printf(const char *format, ...)
 {
-	int i;
-	char x;
-	char *y;
+	int i, printed = 0, printed_chars = 0;
+	int flags, width, precision, size, buff_ind = 0;
+	va_list list;
+	char buffer[BUFF_SIZE];
 
-	va_list arg;
-
-	va_start(arg, format);
 	if (format == NULL)
-	{
 		return (-1);
-	}
-	for (i = 0; format[i]; i++)
+
+	va_start(list, format);
+
+	for (i = 0; format && format[i] != '\0'; i++)
 	{
-		if (format[i] == '%' && format[i + 1] == 'c')
+		if (format[i] != '%')
 		{
-			x = va_arg(arg, int);
-			_putchar(x);
-			i++;
-		}
-		else if (format[i] == '%' && format[i + 1] == 's')
-		{
-			y = va_arg(arg, char*);
-			while (*y)
-			{
-				_putchar(*y);
-				y++;
-			}
-			i++;
-		}
-		else if (format[i] == '%' && format[i + 1] == '%')
-		{
-			_putchar('%');
-			i++;
+			buffer[buff_ind++] = format[i];
+			if (buff_ind == BUFF_SIZE)
+				print_buffer(buffer, &buff_ind);
+			/* write(1, &format[i], 1);*/
+			printed_chars++;
 		}
 		else
 		{
-			_putchar(format[i]);
+			print_buffer(buffer, &buff_ind);
+			flags = get_flags(format, &i);
+			width = get_width(format, &i, list);
+			precision = get_precision(format, &i, list);
+			size = get_size(format, &i);
+			++i;
+			printed = handle_print(format, &i, list, buffer,
+				flags, width, precision, size);
+			if (printed == -1)
+				return (-1);
+			printed_chars += printed;
 		}
 	}
-	return (0);
+
+	print_buffer(buffer, &buff_ind);
+
+	va_end(list);
+
+	return (printed_chars);
+}
+
+/**
+ * print_buffer - Prints the contents of the buffer if it exist
+ * @buffer: Array of chars
+ * @buff_ind: Index at which to add next char, represents the length.
+ */
+void print_buffer(char buffer[], int *buff_ind)
+{
+	if (*buff_ind > 0)
+		write(1, &buffer[0], *buff_ind);
+
+	*buff_ind = 0;
 }
