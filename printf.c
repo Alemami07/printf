@@ -32,10 +32,6 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			if (format[p] != '%r')
-
-		else
-		{
 			print_buffer(buffer, &buff_index);
 			flags = get_flags(format, &p);
 			width = get_width(format, &p, args);

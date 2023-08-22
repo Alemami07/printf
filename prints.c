@@ -20,7 +20,8 @@ int handle_print(const char *fmt, int *index, va_list args, char buffer[],
 		{'i', print_int}, {'d', print_int}, {'b', print_binary},
 		{'u', print_unsigned}, {'o', print_octal}, {'x', print_x},
 		{'X', print_hex_upper}, {'p', print_pointer}, {'S', print_un_printable},
-		{'r', print_rev}, {'R', print_rot13}, {'\0', NULL}
+		{'r', print_rev}, {'R', print_rot13}, {'\0', NULL},
+		{NULL, NULL}
 	};
 	for (p = 0; fmt_list[p].fmt != '\0'; p++)
 		if (fmt[*index] == fmt_list[p].fmt)

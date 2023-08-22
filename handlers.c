@@ -80,7 +80,7 @@ int write_number(int is_negative, int index, char buffer[],
 
 /**
  * write_num - Write a number using a bufffer
- * @index: number 
+ * @index: number
  * @buffer: Buffer
  * @padd: Pading char
  * @flags: Flags
@@ -90,13 +90,13 @@ int write_number(int is_negative, int index, char buffer[],
  * @extra_c: Extra char
  * Return: Number of printed chars.
  */
-int write_num(int index, char buffer[],
-	int flags, int width, int prec,
+int write_num(int index, char buffer[],	int flags, int width, int prec,
 	int length, char padd, char extra_c)
 {
 	int p, padd_start = 1;
 
-	if (prec == 0 && index == BUFFER_SIZE - 2 && buffer[index] == '0' && width == 0)
+	if (prec == 0 && index == BUFFER_SIZE - 2 &&
+			buffer[index] == '0' && width == 0)
 		return (0); /* printf(".0d", 0) */
 	if (prec == 0 && index == BUFFER_SIZE - 2 && buffer[index] == '0')
 		buffer[index] = padd = ' '; /* width is displayed with padding ' ' */
@@ -145,7 +145,6 @@ int write_num(int index, char buffer[],
  * @precision: Precision specifier
  * @width: Width specifier
  * @size: Size specifier
- *
  * Return: Number of written chars.
  */
 int write_unsgnd(int is_negative, int index,

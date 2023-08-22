@@ -4,7 +4,7 @@
  * get_precision - gets the precision for printing
  * @p: Aguments to be printed
  * @format: Formatted string to print the argument
- * @list: list of arguments.
+ * @args: list of arguments.
  *
  * Return: Precision.
  */
