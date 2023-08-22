@@ -120,7 +120,7 @@ int write_num(int index, char buffer[],	int flags, int width, int prec,
 		else if (!(flags & F_MINUS) && padd == ' ')/* extra char to left of buff */
 		{
 			if (extra_c)
-				buffer[--index] = extra_c;
+			buffer[--index] = extra_c;
 			return (write(1, &buffer[1], p - 1) + write(1, &buffer[index], length));
 		}
 		else if (!(flags & F_MINUS) && padd == '0')/* extra char to left of padd */
@@ -135,7 +135,6 @@ int write_num(int index, char buffer[],	int flags, int width, int prec,
 		buffer[--index] = extra_c;
 	return (write(1, &buffer[index], length));
 }
-
 /**
  * write_unsgnd - Writes an unsigned number
  * @is_negative: indicates if the num is negative
