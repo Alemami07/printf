@@ -54,7 +54,7 @@ int _printf(const char *format, ...)
 }
 
 /**
- * print_buffer - This functions prints the content of buffer if present
+ * print_buffer - This functions prints the content of buffer
  * @buffer: char arrays
  * @buff_index: this represents the buffer size
  */
