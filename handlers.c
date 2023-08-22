@@ -139,7 +139,7 @@ int write_num(int index, char buffer[],	int flags, int width, int prec,
  * write_unsgnd - Writes an unsigned number
  * @is_negative: indicates if the num is negative
  * @index: Index
- * @buffer: Array of chars
+ * @buffer: chars arrays
  * @flags: Flags specifiers
  * @precision: Precision specifier
  * @width: Width specifier
